@@ -2,11 +2,6 @@ const sendgrid = require("@sendgrid/mail");
 
 // 2nd approach using serverless function
 exports.handler = async function (event, context) {
-	/**
-	 * TODO add SendGrid API key as a secret
-	 * and retrieve it in the handler
-	 * as netlify.toml gets commited
-	 */
 	sendgrid.setApiKey(process.env.SEND_GRID_API_KEY);
 
   try {
@@ -19,10 +14,6 @@ exports.handler = async function (event, context) {
       html: parsedPayload.html,
     };
     await sendgrid.send(data);
-		/**
-		 * even in 'Success' case
-		 * throws error if you don't return statusCode
-		 */
     return {
       statusCode: 200,
     };
